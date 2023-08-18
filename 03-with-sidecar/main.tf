@@ -4,6 +4,10 @@ terraform {
       source  = "tehcyx/kind"
       version = "~> 0.0.19"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.3.2"
+    }
   }
 }
 
@@ -30,3 +34,15 @@ resource "kind_cluster" "default" {
     }
   }
 }
+
+provider "kubernetes" {
+  config_path    = "~/.kube/config"
+  config_context = "my-context"
+}
+
+resource "kubernetes_namespace" "example" {
+  metadata {
+    name = "my-first-namespace"
+  }
+}
+
